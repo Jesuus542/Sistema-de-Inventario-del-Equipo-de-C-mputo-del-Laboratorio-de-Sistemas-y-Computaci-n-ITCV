@@ -1,0 +1,207 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor llene la altura de la vista */
+}
+
+/* Estilos para el formulario de inicio de sesión */
+#login-form {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#login-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#login-form input {
+    width: calc(100% - 22px); /* Full width minus padding and border */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#login-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#login-form button:hover {
+    background-color: #0056b3;
+}
+
+#mensaje-error {
+    color: #d9534f;
+    display: none;
+}
+
+/* Estilos para el contenido del sistema de inventario */
+#contenido {
+    display: none; /* Ocultar el contenido principal inicialmente */
+    text-align: center;
+}
+
+#contenido h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.imagen-inventario {
+    width: 100%; /* Ajusta la imagen al ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+}
+
+#form-inventario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+}
+
+.btn-agregar,
+.btn-cerrar-sesion {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-agregar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-agregar:hover {
+    background-color: #0056b3;
+}
+
+.btn-cerrar-sesion {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #c9302c;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.elemento-boton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.elemento-boton:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón de cerrar sesión */
+.btn-cerrar-sesion {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #c9302c;
+}
+
+/* Estilos para el pie de página */
+.footer {
+    margin-top: auto; /* Empuja el pie de página hacia abajo */
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ddd;
+}
+
+.footer p {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+}

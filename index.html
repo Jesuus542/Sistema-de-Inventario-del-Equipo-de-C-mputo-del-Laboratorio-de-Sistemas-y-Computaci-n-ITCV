@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Formulario de inicio de sesión -->
+        <div id="login-form">
+            <img src="https://encuestas.tecvictoria.edu.mx/tmp/assets/309f1b95/itcvheader.jpg" alt="Imagen del Inventario" class="imagen-inventario">
+            <h2>Inicio de Sesión</h2>
+            <form onsubmit="return iniciarSesion()">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario"><br>
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena"><br>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <p id="mensaje-error">Nombre de usuario o contraseña incorrectos.</p>
+        </div>
+
+        <!-- Contenido principal del sistema de inventario -->
+        <div id="contenido">
+            <!-- Imagen dentro del contenido -->
+            <img src="https://encuestas.tecvictoria.edu.mx/tmp/assets/309f1b95/itcvheader.jpg" alt="Imagen del Inventario" class="imagen-inventario">
+            <h1>Sistema de Inventario del Equipo de Cómputo del Laboratorio de Sistemas y Computación ITCV</h1>
+            <form id="form-inventario">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="number" id="id" name="id">
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad">
+                </div>
+                <button type="button" class="btn-agregar" onclick="agregarElemento()">Agregar Elemento</button>
+            </form>
+            <br>
+            <!-- Buscador de elementos -->
+            <div class="form-group">
+                <label for="buscador">Buscar elemento por ID o Nombre:</label>
+                <input type="text" id="buscador" onkeyup="buscarElemento()">
+            </div>
+            <br>
+            <!-- Botón comentado por ahora -->
+            <!-- <button type="button" class="btn-eliminar" onclick="eliminarInventario()">Eliminar Inventario</button> -->
+            <ul id="lista-inventario">
+                <!-- Elementos del inventario se cargarán aquí -->
+            </ul>
+            <br>
+            <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>&copy; 2024 J. Olvera. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <!-- Vincular el archivo JavaScript -->
+    <script src="inventario.js" defer></script>
+</body>
+</html>

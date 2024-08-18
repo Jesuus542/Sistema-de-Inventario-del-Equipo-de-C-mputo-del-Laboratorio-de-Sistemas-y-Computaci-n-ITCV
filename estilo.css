@@ -23,7 +23,7 @@ body {
     min-height: 100vh; /* Asegura que el contenedor llene la altura de la vista */
 }
 
-/* Estilos para el formulario de inicio de sesión */
+/* Estilos para el formulario de inicio de sesiÃ³n */
 #login-form {
     text-align: center;
     padding: 20px;
@@ -84,7 +84,7 @@ body {
 
 .imagen-inventario {
     width: 100%; /* Ajusta la imagen al ancho del contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
+    height: auto; /* Mantiene la proporciÃ³n de la imagen */
     border-radius: 8px;
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
@@ -176,24 +176,24 @@ li {
     background-color: #0056b3;
 }
 
-/* Estilo para el botón de cerrar sesión */
-.btn-cerrar-sesion {
-    background-color: #d9534f;
+/* Estilo para el botÃ³n de eliminar */
+.btn-eliminar {
+    background-color: #dc3545;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.btn-cerrar-sesion:hover {
-    background-color: #c9302c;
+.btn-eliminar:hover {
+    background-color: #c82333;
 }
 
-/* Estilos para el pie de página */
+/* Estilos para el pie de pÃ¡gina */
 .footer {
-    margin-top: auto; /* Empuja el pie de página hacia abajo */
+    margin-top: auto; /* Empuja el pie de pÃ¡gina hacia abajo */
     text-align: center;
     padding: 10px;
     background-color: #f1f1f1;

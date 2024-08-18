@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Inventario</title>
     <link rel="stylesheet" href="estilo.css">
+    <!-- Incluir la biblioteca jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Incluir la extensión de autoTable para jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <!-- Contenedor principal -->
@@ -51,11 +55,15 @@
                 <input type="text" id="buscador" onkeyup="buscarElemento()">
             </div>
             <br>
+            <!-- Botón para generar PDF -->
+            <button id="btn-generar-pdf">Generar PDF</button>
+            <br><br>
             <!-- Botón comentado por ahora -->
             <!-- <button type="button" class="btn-eliminar" onclick="eliminarInventario()">Eliminar Inventario</button> -->
             <ul id="lista-inventario">
                 <!-- Elementos del inventario se cargarán aquí -->
             </ul>
+            <p id="mensaje-vacio" style="display: none;">No hay elementos en el inventario. ¡Añade algunos para comenzar!</p>
             <br>
             <button class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
         </div>

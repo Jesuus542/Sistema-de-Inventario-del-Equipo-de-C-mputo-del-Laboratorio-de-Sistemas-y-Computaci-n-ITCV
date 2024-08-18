@@ -2,7 +2,7 @@
 const usuarioCorrecto = 'admin';
 const contrasenaCorrecta = '1234';
 
-// FunciÛn para iniciar sesiÛn
+// Funci√≥n para iniciar sesi√≥n
 function iniciarSesion() {
     const usuario = document.getElementById('usuario').value;
     const contrasena = document.getElementById('contrasena').value;
@@ -12,17 +12,17 @@ function iniciarSesion() {
         document.getElementById('login-form').style.display = 'none';
         document.getElementById('contenido').style.display = 'block';
         cargarInventario();
-        // Limpiar campos de usuario y contraseÒa
+        // Limpiar campos de usuario y contrase√±a
         document.getElementById('usuario').value = '';
         document.getElementById('contrasena').value = '';
-        return false; // Evitar el envÌo del formulario
+        return false; // Evitar el env√≠o del formulario
     } else {
         document.getElementById('mensaje-error').style.display = 'block';
-        return false; // Evitar el envÌo del formulario
+        return false; // Evitar el env√≠o del formulario
     }
 }
 
-// FunciÛn para verificar si la sesiÛn est· activa
+// Funci√≥n para verificar si la sesi√≥n est√° activa
 function verificarSesion() {
     if (localStorage.getItem('sesionActiva') === 'true') {
         document.getElementById('login-form').style.display = 'none';
@@ -31,24 +31,24 @@ function verificarSesion() {
     }
 }
 
-// FunciÛn para cerrar sesiÛn
+// Funci√≥n para cerrar sesi√≥n
 function cerrarSesion() {
     localStorage.removeItem('sesionActiva');
     document.getElementById('contenido').style.display = 'none';
     document.getElementById('login-form').style.display = 'block';
-    // Limpiar campos de usuario y contraseÒa
+    // Limpiar campos de usuario y contrase√±a
     document.getElementById('usuario').value = '';
     document.getElementById('contrasena').value = '';
 }
 
-// FunciÛn para agregar un nuevo elemento al inventario
+// Funci√≥n para agregar un nuevo elemento al inventario
 function agregarElemento() {
     const id = parseInt(document.getElementById('id').value, 10);
     const nombre = document.getElementById('nombre').value.trim();
     const cantidad = parseInt(document.getElementById('cantidad').value, 10);
 
     if (isNaN(id) || !nombre || isNaN(cantidad) || cantidad <= 0) {
-        alert('Por favor, ingrese un ID v·lido, un nombre v·lido y una cantidad positiva.');
+        alert('Por favor, ingrese un ID v√°lido, un nombre v√°lido y una cantidad positiva.');
         return;
     }
 
@@ -57,7 +57,7 @@ function agregarElemento() {
     // Verificar si el nombre ya existe en el inventario
     const nombreExistente = inventario.find(item => item.nombre === nombre);
     if (nombreExistente) {
-        alert('El nombre ya existe en el inventario. No se puede aÒadir un nuevo ID con un nombre ya existente.');
+        alert('El nombre ya existe en el inventario. No se puede a√±adir un nuevo ID con un nombre ya existente.');
         return;
     }
 
@@ -81,7 +81,7 @@ function agregarElemento() {
     document.getElementById('cantidad').value = '';
 }
 
-// FunciÛn para cargar el inventario y mostrarlo en la lista
+// Funci√≥n para cargar el inventario y mostrarlo en la lista
 function cargarInventario() {
     const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     const listaInventario = document.getElementById('lista-inventario');
@@ -92,14 +92,15 @@ function cargarInventario() {
         const elemento = document.createElement('li');
         elemento.innerHTML = `
             ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
-            <button onclick="aumentarCantidad(${item.id})"> + </button>
-            <button onclick="disminuirCantidad(${item.id})"> - </button>
+            <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
+            <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
+            <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
         `;
         listaInventario.appendChild(elemento);
     });
 }
 
-// FunciÛn para aumentar la cantidad de un elemento
+// Funci√≥n para aumentar la cantidad de un elemento
 function aumentarCantidad(id) {
     let inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     const elemento = inventario.find(item => item.id === id);
@@ -111,7 +112,7 @@ function aumentarCantidad(id) {
     }
 }
 
-// FunciÛn para disminuir la cantidad de un elemento
+// Funci√≥n para disminuir la cantidad de un elemento
 function disminuirCantidad(id) {
     let inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     const elemento = inventario.find(item => item.id === id);
@@ -127,7 +128,15 @@ function disminuirCantidad(id) {
     }
 }
 
-// FunciÛn para buscar un elemento por ID o nombre
+// Funci√≥n para eliminar un elemento espec√≠fico del inventario
+function eliminarElemento(id) {
+    let inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+    inventario = inventario.filter(item => item.id !== id);
+    localStorage.setItem('inventario', JSON.stringify(inventario));
+    cargarInventario();
+}
+
+// Funci√≥n para buscar un elemento por ID o nombre
 function buscarElemento() {
     const query = document.getElementById('buscador').value.toLowerCase();
     const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
@@ -143,20 +152,13 @@ function buscarElemento() {
         const elemento = document.createElement('li');
         elemento.innerHTML = `
             ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
-            <button onclick="aumentarCantidad(${item.id})"> + </button>
-            <button onclick="disminuirCantidad(${item.id})"> - </button>
+            <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
+            <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
+            <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
         `;
         listaInventario.appendChild(elemento);
     });
 }
 
-// FunciÛn para eliminar todo el inventario (comentada por ahora)
-// function eliminarInventario() {
-//     if (confirm('øEst·s seguro de que quieres eliminar todo el inventario?')) {
-//         localStorage.removeItem('inventario');
-//         cargarInventario();
-//     }
-// }
-
-// Verificar el estado de la sesiÛn al cargar la p·gina
+// Verificar el estado de la sesi√≥n al cargar la p√°gina
 document.addEventListener('DOMContentLoaded', verificarSesion);

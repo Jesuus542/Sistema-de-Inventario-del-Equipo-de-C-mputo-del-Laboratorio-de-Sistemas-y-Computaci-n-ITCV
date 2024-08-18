@@ -33,12 +33,17 @@ function verificarSesion() {
 
 // Función para cerrar sesión
 function cerrarSesion() {
-    localStorage.removeItem('sesionActiva');
-    document.getElementById('contenido').style.display = 'none';
-    document.getElementById('login-form').style.display = 'block';
-    // Limpiar campos de usuario y contraseña
-    document.getElementById('usuario').value = '';
-    document.getElementById('contrasena').value = '';
+    // Mostrar un mensaje de confirmación antes de cerrar sesión
+    const confirmacion = confirm("¿Estás seguro de que deseas cerrar sesión?");
+
+    if (confirmacion) {
+        localStorage.removeItem('sesionActiva');
+        document.getElementById('contenido').style.display = 'none';
+        document.getElementById('login-form').style.display = 'block';
+        // Limpiar campos de usuario y contraseña
+        document.getElementById('usuario').value = '';
+        document.getElementById('contrasena').value = '';
+    }
 }
 
 // Función para agregar un nuevo elemento al inventario
@@ -85,19 +90,26 @@ function agregarElemento() {
 function cargarInventario() {
     const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     const listaInventario = document.getElementById('lista-inventario');
+    const mensajeVacio = document.getElementById('mensaje-vacio');
 
     listaInventario.innerHTML = '';
 
-    inventario.forEach(item => {
-        const elemento = document.createElement('li');
-        elemento.innerHTML = `
-            ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
-            <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
-            <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
-            <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
-        `;
-        listaInventario.appendChild(elemento);
-    });
+    if (inventario.length === 0) {
+        mensajeVacio.style.display = 'block';
+    } else {
+        mensajeVacio.style.display = 'none';
+
+        inventario.forEach(item => {
+            const elemento = document.createElement('li');
+            elemento.innerHTML = `
+                ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
+                <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
+                <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
+                <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
+            `;
+            listaInventario.appendChild(elemento);
+        });
+    }
 }
 
 // Función para aumentar la cantidad de un elemento
@@ -120,45 +132,74 @@ function disminuirCantidad(id) {
     if (elemento) {
         if (elemento.cantidad > 1) {
             elemento.cantidad--;
-        } else {
+            } else {
             inventario = inventario.filter(item => item.id !== id);
         }
+
         localStorage.setItem('inventario', JSON.stringify(inventario));
         cargarInventario();
     }
 }
 
-// Función para eliminar un elemento específico del inventario
+// Función para eliminar un elemento del inventario
 function eliminarElemento(id) {
     let inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     inventario = inventario.filter(item => item.id !== id);
+
     localStorage.setItem('inventario', JSON.stringify(inventario));
     cargarInventario();
 }
 
 // Función para buscar un elemento por ID o nombre
 function buscarElemento() {
-    const query = document.getElementById('buscador').value.toLowerCase();
+    const termino = document.getElementById('buscador').value.toLowerCase();
     const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
     const listaInventario = document.getElementById('lista-inventario');
 
     listaInventario.innerHTML = '';
 
-    const resultados = inventario.filter(item => 
-        item.id.toString().includes(query) || item.nombre.toLowerCase().includes(query)
-    );
+    inventario
+        .filter(item => item.nombre.toLowerCase().includes(termino) || item.id.toString().includes(termino))
+        .forEach(item => {
+            const elemento = document.createElement('li');
+            elemento.innerHTML = `
+                ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
+                <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
+                <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
+                <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
+            `;
+            listaInventario.appendChild(elemento);
+        });
 
-    resultados.forEach(item => {
-        const elemento = document.createElement('li');
-        elemento.innerHTML = `
-            ID: ${item.id} | Nombre: ${item.nombre} | Cantidad: ${item.cantidad}
-            <button class="elemento-boton" onclick="aumentarCantidad(${item.id})"> + </button>
-            <button class="elemento-boton" onclick="disminuirCantidad(${item.id})"> - </button>
-            <button class="btn-eliminar" onclick="eliminarElemento(${item.id})">Eliminar</button>
-        `;
-        listaInventario.appendChild(elemento);
-    });
+    if (listaInventario.innerHTML === '') {
+        const mensajeVacio = document.createElement('p');
+        mensajeVacio.textContent = 'No se encontraron elementos.';
+        listaInventario.appendChild(mensajeVacio);
+    }
 }
 
-// Verificar el estado de la sesión al cargar la página
+// Función para generar el PDF del inventario
+function generarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+
+    if (inventario.length === 0) {
+        alert('El inventario está vacío. No hay nada que generar en el PDF.');
+        return;
+    }
+
+    doc.text('Sistema de Inventario del Equipo de Cómputo del Laboratorio de Sistemas y Computación ITCV', 10, 10);
+    doc.autoTable({
+        head: [['ID', 'Nombre', 'Cantidad']],
+        body: inventario.map(item => [item.id, item.nombre, item.cantidad]),
+    });
+
+    doc.save('inventario.pdf');
+}
+
+// Asignar la función al botón de generar PDF
+document.getElementById('btn-generar-pdf').addEventListener('click', generarPDF);
+
+// Verificar la sesión al cargar la página
 document.addEventListener('DOMContentLoaded', verificarSesion);
